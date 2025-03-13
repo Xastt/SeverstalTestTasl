@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>Delivery Report</title>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/supplier">Supplier page</a></li>
+                <li><a href="/product">Product page</a></li>
+            </ul>
+        </nav>
+        <h1>Severstal</h1>
+    </header>
+
+    <ul>
+        <h1>Delivery Report</h1>
+
+        <form th:action="@{/deliver/report}" method="get">
+            <label for="startDate">Начальная дата:</label>
+            <input type="date" name="startDate" th:value="${startDate}" id="startDate">
+            <label for="endDate">Конечная дата:</label>
+            <input type="date" name="endDate" th:value="${endDate}" id="endDate">
+            <button type="submit">Показать</button>
+        </form>
+        <table style="border:1px">
+            <tr>
+                <th>Поставщик</th>
+                <th>Продукт</th>
+                <th>Тип</th>
+                <th>Вес (кг)</th>
+                <th>Цена за кг</th>
+                <th>Общая стоимость</th>
+            </tr>
+            <tr th:each="delivery : ${deliveries}">
+                <td th:text="${delivery.supplier.getCompany_name()}"></td>
+                <td th:each="product : ${delivery.products}">
+                    <span th:text="${product.getProduct_name()}"></span>
+                </td>
+                <td th:each="product : ${delivery.products}">
+                    <span th:text="${product.getProduct_type()}"></span>
+                </td>
+                <td th:each="product : ${delivery.products}">
+                    <span th:text="${delivery.weight}"></span>
+                </td>
+                <td th:text="${delivery.price_for_kg}"></td>
+                <td th:each="product : ${delivery.products}">
+                    <span th:text="${delivery.weight * delivery.price_for_kg}"></span>
+                </td>
+            </tr>
+        </table>
+        <a href="/deliver/form">Добавить поставку</a>
+    </ul>
+</article>
+
+</body>
+</html>

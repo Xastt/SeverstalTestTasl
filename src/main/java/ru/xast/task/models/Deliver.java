@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +30,7 @@ public class Deliver {
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "delivery_date")
-    private LocalDateTime delivery_date;
+    private LocalDate delivery_date;
 
     @Column(name = "weight")
     @Min(value = 1, message = "Your weight should be more than 1!")

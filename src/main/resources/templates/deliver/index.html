@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <meta charset="UTF-8">
-    <title>Error</title>
+    <title>Index</title>
     <style>
         form{
             max-width: 0px;
@@ -22,31 +22,21 @@
     <header>
         <nav class="clear">
             <ul>
-                <li><a>Go Back To -></a></li>
+                <li><a href = "/product/new">New Product</a></li>
                 <li><a href="/supplier">Supplier Page</a></li>
-                <li><a href="/product">Product Page</a></li>
-                <li><a href="/deliver">Deliver page</a></li>
+                <li><a href="/deliver/form">Create Deliver</a></li>
+                <li><a href="/deliver/report">Create Report</a></li>
             </ul>
         </nav>
         <h1>Severstal</h1>
     </header>
 
     <ul>
-        <h1>Error!</h1>
+        <h1>Delivers list:</h1>
         <div class = "for-list">
-            <p style="
-        font-size: 1.3em;
-        color: #333333;
-        line-height: 1.8;
-        text-align: left;
-        padding: 20px;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-weight: 300;
-        letter-spacing: 0.5px;
-        background: #f0f0f0;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    ">Something went wrong! Please try again.</p>
+            <p th:each="deliver : ${delivers}">
+                <a th:text="${'Deliver date: ' + deliver.delivery_date+ ', Weight: ' + deliver.weight + ', Price per KG: ' + deliver.price_for_kg + ' Rub.'}">deliver</a>
+            </p>
         </div>
     </ul>
 

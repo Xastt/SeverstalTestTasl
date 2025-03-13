@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New Deliver</title>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/supplier">Supplier page</a></li>
+                <li><a href="/product">Product page</a></li>
+                <li><a href="/deliver">Deliver page</a></li>
+                <li><a href="/suppliers/new">Add supplier</a></li>
+                <li><a href="/products/new">Add product</a></li>
+                <li><a href="/deliver/report">Create Report</a></li>
+            </ul>
+        </nav>
+        <h1>Severstal</h1>
+    </header>
+
+    <ul>
+        <h1>Add new deliver:</h1>
+
+        <form th:method="POST" th:action="@{/deliver/create}" th:object="${deliver}">
+            <label for="supplier">Supplier: </label>
+            <select th:field="*{supplier}" id = "supplier">
+                <option th:each="supplier : ${suppliers}" th:value="${supplier.getSupplier_id()}" th:text="${supplier.getCompany_name()}" ></option>
+            </select>
+            <br/>
+            <label for="delivery_date">Date of deliver:</label>
+            <input type="date" th:field="*{delivery_date}" id="delivery_date">
+            <div style="color: red" th:if="${#fields.hasErrors('delivery_date')}" th:errors="*{delivery_date}">Date Error</div>
+            <br>
+            <label for="weight">Weight:</label>
+            <input type="number" step="0.01" th:field="*{weight}" id="weight">
+            <div style="color: red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Weight Error</div>
+            <br>
+            <label for="pricePerKg">Price per KG(Rub):</label>
+            <input type="number" step="0.01" th:field="*{price_for_kg}" id="pricePerKg">
+            <div style="color: red" th:if="${#fields.hasErrors('price_for_kg')}" th:errors="*{price_for_kg}">Price Error</div>
+            <br>
+            <button type="submit">Add Deliver</button>
+        </form>
+    </ul>
+</article>
+
+</body>
+</html>
