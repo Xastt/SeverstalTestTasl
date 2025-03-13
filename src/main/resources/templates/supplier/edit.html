@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>Update supplier</title>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/supplier">Supplier Page</a></li>
+                <li><a href="/product">Product page</a></li>
+                <li><a href="/supplier/new">New Supplier</a></li>
+
+            </ul>
+        </nav>
+        <h1>Severstal</h1>
+    </header>
+
+    <ul>
+        <h1>Edit supplier:</h1>
+        <form th:method="POST" th:action="@{/supplier/{id}(id=${supplier.getSupplier_id()})}" th:object="${supplier}">
+            <label for="company_name">Enter company name: </label>
+            <input type="text" th:field="*{company_name}" id="company_name"/>
+            <div style="color: red" th:if="${#fields.hasErrors('company_name')}" th:errors="*{company_name}">Name Error</div>
+            <br/>
+            <label for="work_email">Enter work email: </label>
+            <input type="text" th:field="*{work_email}" id="work_email"/>
+            <div style="color: red" th:if="${#fields.hasErrors('work_email')}" th:errors="*{work_email}">Email Error</div>
+            <br/>
+            <input type="submit" value="Update!"/>
+        </form>
+    </ul>
+
+</article>
+</body>
+</html>

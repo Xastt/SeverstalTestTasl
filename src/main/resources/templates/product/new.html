@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New Product</title>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/supplier">Supplier page</a></li>
+                <li><a href="/product">Product page</a></li>
+            </ul>
+        </nav>
+        <h1>Severstal</h1>
+    </header>
+
+    <ul>
+        <h1>Add new product:</h1>
+
+        <form th:method="POST" th:action="@{/product}" th:object="${product}">
+            <label for="product_name">Enter product name: </label>
+            <input type="text" th:field="*{product_name}" id="product_name"/>
+            <div style="color: red" th:if="${#fields.hasErrors('product_name')}" th:errors="*{product_name}">Name Error</div>
+            <br/>
+            <label for="product_type">Enter product type: </label>
+            <input type="text" th:field="*{product_type}" id="product_type"/>
+            <div style="color: red" th:if="${#fields.hasErrors('product_type')}" th:errors="*{product_type}">Type Error</div>
+            <br/>
+            <input type="submit" value="Create!"/>
+        </form>
+    </ul>
+</article>
+
+</body>
+</html>

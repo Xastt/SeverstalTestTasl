@@ -1,0 +1,29 @@
+@startuml
+
+entity Supplier {
+    +supplier_id: UUID PK
+    +company_name: varchar(100) UNIQUE NOT NULL
+    +work_email: varchar(100) UNIQUE NOT NULL
+}
+
+entity Product {
+    +product_id: UUID PK
+    +product_name: VARCHAR(100) NOT NULL
+    +product_type: VARCHAR(100) UNIQUE NOT NULL
+    +supplier_id: UUID REFERENCES supplier(supplier_id)
+    +delivery_id UUID REFERENCES delivery(delivery_id)
+}
+
+entity Deliver{
+    +delivery_id: UUID PK
+    +supplier_id: UUID REFERENCES supplier(supplier_id)
+    +delivery_date: DATE NOT NULL
+    +weight NUMERIC(8, 2) NOT NULL,
+    +price_for_kg NUMERIC(8, 2) NOT NULL
+}
+
+Supplier ||--o{ Product : "OneToMany"
+Deliver ||--o{ Product : "OneToMany"
+Deliver }o--|| Supplier : "ManyToOne"
+
+@enduml

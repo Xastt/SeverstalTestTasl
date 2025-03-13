@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles_show.css}">
+    <meta charset="UTF-8">
+    <title>Show Product</title>
+</head>
+<body>
+
+<article>
+    <div class="content-wrapper">
+        <header>
+            <nav class="clear">
+                <ul>
+                    <li><a href="/persInf">Supplier page</a></li>
+                    <li><a href="/profInf">New supplier</a></li>
+                </ul>
+            </nav>
+            <h1>Severstal</h1>
+        </header>
+    </div>
+    <ul>
+        <div class="container">
+            <h1 class = "inf">Product information:</h1>
+
+            <p th:text="${'Product name: ' + product.getProduct_name()}">VALUE</p>
+            <p th:text="${'Product type: ' + product.getProduct_type()}">VALUE</p>
+
+            <form th:method="GET" th:action="@{/product/{id}/edit(id=${product.getProduct_id()})}">
+                <input class = "input-btn" type="submit" value="Edit"/>
+            </form>
+
+            <form th:method="DELETE" th:action="@{/product/{id}(id=${product.getProduct_id()})}">
+                <input class = "input-btn" type="submit" value="Delete"/>
+            </form>
+
+        </div>
+    </ul>
+</article>
+
+</body>
+</html>

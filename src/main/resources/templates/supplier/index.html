@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        form{
+            max-width: 0px;
+            background: none;
+            padding: 2px;
+            margin-left: 0;
+            box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+        }
+        td{
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href = "/supplier/new">New Supplier</a></li>
+                <li><a href="/product">Product Page</a></li>
+            </ul>
+        </nav>
+        <h1>Severstal</h1>
+    </header>
+
+    <ul>
+        <h1>Suppliers list:</h1>
+        <div class = "for-list">
+            <p th:each="supplier : ${supplier}">
+                <a th:href="@{/supplier/{id}(id=${supplier.getSupplier_id()})}"
+                   th:text="${'Company name: ' + supplier.getCompany_name()+ ', email: ' + supplier.getWork_email()}">supplier</a>
+            </p>
+        </div>
+    </ul>
+
+</article>
+</body>
+</html>

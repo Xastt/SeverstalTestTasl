@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles_show.css}">
+    <meta charset="UTF-8">
+    <title>Show Supplier</title>
+</head>
+<body>
+
+<article>
+    <div class="content-wrapper">
+        <header>
+            <nav class="clear">
+                <ul>
+                    <li><a href="/persInf">Supplier page</a></li>
+                    <li><a href="/product">Product page</a></li>
+                    <li><a href="/profInf">New supplier</a></li>
+                </ul>
+            </nav>
+            <h1>Severstal</h1>
+        </header>
+    </div>
+    <ul>
+        <div class="container">
+            <h1 class = "inf">Supplier information:</h1>
+
+            <p th:text="${'Company name: ' + supplier.getCompany_name()}">VALUE</p>
+            <p th:text="${'Email: ' + supplier.getWork_email()}">VALUE</p>
+
+            <form th:method="GET" th:action="@{/supplier/{id}/edit(id=${supplier.getSupplier_id()})}">
+                <input class = "input-btn" type="submit" value="Edit"/>
+            </form>
+
+            <form th:method="DELETE" th:action="@{/supplier/{id}(id=${supplier.getSupplier_id()})}">
+                <input class = "input-btn" type="submit" value="Delete"/>
+            </form>
+
+        </div>
+    </ul>
+</article>
+
+</body>
+</html>
