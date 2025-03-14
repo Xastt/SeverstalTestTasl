@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface DeliverRepository extends JpaRepository<Deliver, UUID> {
 
-    @Query("SELECT d FROM Deliver d WHERE d.delivery_date BETWEEN :startDate AND :endDate")
+    @Query("SELECT d FROM Deliver d JOIN FETCH d.products WHERE d.delivery_date BETWEEN :startDate AND :endDate")
     List<Deliver> findByDeliveryDateBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }

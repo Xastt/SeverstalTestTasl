@@ -4,6 +4,28 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <meta charset="UTF-8">
     <title>Delivery Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,6 +36,9 @@
             <ul>
                 <li><a href="/supplier">Supplier page</a></li>
                 <li><a href="/product">Product page</a></li>
+                <li><a href="/deliver">Deliver page</a></li>
+                <li><a href="/suppliers/new">Add supplier</a></li>
+                <li><a href="/products/new">Add product</a></li>
             </ul>
         </nav>
         <h1>Severstal</h1>
@@ -23,39 +48,40 @@
         <h1>Delivery Report</h1>
 
         <form th:action="@{/deliver/report}" method="get">
-            <label for="startDate">Начальная дата:</label>
+            <label for="startDate">Start date:</label>
             <input type="date" name="startDate" th:value="${startDate}" id="startDate">
-            <label for="endDate">Конечная дата:</label>
+            <label for="endDate">End date:</label>
             <input type="date" name="endDate" th:value="${endDate}" id="endDate">
-            <button type="submit">Показать</button>
+            <button type="submit">Show</button>
         </form>
         <table style="border:1px">
-            <tr>
-                <th>Поставщик</th>
-                <th>Продукт</th>
-                <th>Тип</th>
-                <th>Вес (кг)</th>
-                <th>Цена за кг</th>
-                <th>Общая стоимость</th>
-            </tr>
-            <tr th:each="delivery : ${deliveries}">
-                <td th:text="${delivery.supplier.getCompany_name()}"></td>
-                <td th:each="product : ${delivery.products}">
-                    <span th:text="${product.getProduct_name()}"></span>
-                </td>
-                <td th:each="product : ${delivery.products}">
-                    <span th:text="${product.getProduct_type()}"></span>
-                </td>
-                <td th:each="product : ${delivery.products}">
-                    <span th:text="${delivery.weight}"></span>
-                </td>
-                <td th:text="${delivery.price_for_kg}"></td>
-                <td th:each="product : ${delivery.products}">
-                    <span th:text="${delivery.weight * delivery.price_for_kg}"></span>
-                </td>
-            </tr>
+            <table style="border:1px">
+                <tr>
+                    <th>Supplier</th>
+                    <th>Product</th>
+                    <th>Type</th>
+                    <th>Weight (KG)</th>
+                    <th>Price per KG</th>
+                    <th>Total sum</th>
+                </tr>
+                <tr th:each="delivery : ${deliveries}" th:with="supplierName=${delivery.supplier.getCompany_name()}">
+                    <td th:text="${supplierName}"></td>
+                    <td colspan="5">
+                        <table>
+                            <tr th:each="product : ${delivery.products}">
+                                <td th:text="${product.getProduct_name()}"></td>
+                                <td th:text="${product.getProduct_type()}"></td>
+                                <td th:text="${delivery.getWeight()}"></td>
+                                <td th:text="${delivery.getPrice_for_kg()}"></td>
+                                <td th:text="${delivery.getWeight() * delivery.getPrice_for_kg()}"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+
         </table>
-        <a href="/deliver/form">Добавить поставку</a>
     </ul>
 </article>
 

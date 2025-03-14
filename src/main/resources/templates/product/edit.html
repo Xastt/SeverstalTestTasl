@@ -21,7 +21,7 @@
     </header>
 
     <ul>
-        <h1>Edit supplier:</h1>
+        <h1>Edit product:</h1>
         <form th:method="POST" th:action="@{/product/{id}(id=${product.getProduct_id()})}" th:object="${product}">
             <label for="product_name">Enter product name: </label>
             <input type="text" th:field="*{product_name}" id="product_name"/>
