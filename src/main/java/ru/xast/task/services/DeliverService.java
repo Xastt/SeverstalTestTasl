@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.xast.task.models.Deliver;
+import ru.xast.task.models.Product;
 import ru.xast.task.models.Supplier;
 import ru.xast.task.repositories.DeliverRepository;
+import ru.xast.task.repositories.ProductRepository;
 import ru.xast.task.repositories.SupplierRepository;
 
 import java.time.LocalDate;
@@ -21,16 +23,22 @@ public class DeliverService {
 
     private final DeliverRepository deliverRepository;
     private final SupplierRepository supplierRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public DeliverService(DeliverRepository deliverRepository, SupplierRepository supplierRepository) {
+    public DeliverService(DeliverRepository deliverRepository, SupplierRepository supplierRepository, ProductRepository productRepository) {
         this.deliverRepository = deliverRepository;
         this.supplierRepository = supplierRepository;
+        this.productRepository = productRepository;
     }
 
     public void save(Deliver deliver) {
         try {
             deliverRepository.save(deliver);
+            for(Product product : deliver.getProducts()) {
+                product.setDelivery(deliver);
+                productRepository.save(product);
+            }
             log.info("Deliver saved, id: {}", deliver.getDelivery_id());
         }catch (Exception e) {
             log.error("Error while saving Deliver: {}", e.getMessage());

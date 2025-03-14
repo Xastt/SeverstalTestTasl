@@ -49,4 +49,9 @@ public class Deliver {
         this.products = products;
     }
 
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setDelivery(this);
+    }
+
 }

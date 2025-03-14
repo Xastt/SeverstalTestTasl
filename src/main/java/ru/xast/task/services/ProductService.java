@@ -72,4 +72,8 @@ public class ProductService {
             throw new RuntimeException("Failed to find Product with id: " + id);
         }
     }
+
+    public List<Product> findAllById(List<UUID> ids) {
+        return productRepository.findAllById(ids);
+    }
 }

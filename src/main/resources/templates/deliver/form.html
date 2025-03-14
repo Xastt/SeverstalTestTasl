@@ -4,6 +4,26 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <meta charset="UTF-8">
     <title>New Deliver</title>
+    <script>
+        function addProductField() {
+            const productFields = document.getElementById("product-fields");
+            const productIndex = productFields.children.length;
+
+            const newProductField = document.createElement("div");
+            newProductField.innerHTML = `
+                <h3>Product ${productIndex + 1}</h3>
+                <label for="product_${productIndex}">Product:</label>
+                <select name="selectedProducts" id="product_${productIndex}">
+                    <!-- Используем JavaScript для добавления опций -->
+                    ${Array.from(document.querySelectorAll("#product_0 option"))
+                .map(option => `<option value="${option.value}">${option.text}</option>`)
+                .join("")}
+                </select>
+                <br>
+            `;
+            productFields.appendChild(newProductField);
+        }
+    </script>
 </head>
 <body>
 
@@ -44,6 +64,23 @@
             <input type="number" step="0.01" th:field="*{price_for_kg}" id="pricePerKg">
             <div style="color: red" th:if="${#fields.hasErrors('price_for_kg')}" th:errors="*{price_for_kg}">Price Error</div>
             <br>
+            <br>
+            <h2>Products:</h2>
+            <div id="product-fields">
+                <div>
+                    <h3>Product 1</h3>
+                    <label for="product_0">Product:</label>
+                    <select name="selectedProducts" id="product_0">
+                        <option th:each="product : ${products}"
+                                th:value="${product.getProduct_id()}"
+                                th:text="${product.getProduct_name() + ' (' + product.getProduct_type() + ')'}">
+                        </option>
+                    </select>
+                    <br>
+                </div>
+            </div>
+
+            <button type="button" onclick="addProductField()">Add Product</button>
             <button type="submit">Add Deliver</button>
         </form>
     </ul>
