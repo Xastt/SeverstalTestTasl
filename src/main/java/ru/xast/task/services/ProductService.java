@@ -73,7 +73,15 @@ public class ProductService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Product> findAllById(List<UUID> ids) {
-        return productRepository.findAllById(ids);
+        try {
+            List<Product> productList = productRepository.findAllById(ids);
+            log.info("Found {} Product records by ID", productList.size());
+            return productList;
+        }catch (Exception e) {
+            log.error("Error finding all Product records by ID: {}", ids, e);
+            throw new RuntimeException("Failed to find all Product records by ID: " + ids);
+        }
     }
 }

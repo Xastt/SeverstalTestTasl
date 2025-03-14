@@ -31,7 +31,8 @@ public class Supplier {
 
     public Supplier() {}
 
-    public Supplier(String company_name) {
+    public Supplier(String company_name, String work_email) {
         this.company_name = company_name;
+        this.work_email = work_email;
     }
 }
